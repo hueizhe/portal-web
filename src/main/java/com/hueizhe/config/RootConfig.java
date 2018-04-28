@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Import;
 
 @Configurable
 @Import({DataConfig.class})
-@ComponentScan({"com.example.service", "com.example.utils"})
+@ComponentScan({"com.hueizhe.service", "com.hueizhe.utils"})
 public class RootConfig {
 }

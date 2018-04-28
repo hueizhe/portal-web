@@ -27,7 +27,10 @@ public class DataConfig {
 
     @Bean
     public RedisConnectionFactory connectionFactory() {
-        return new JedisConnectionFactory();
+        JedisConnectionFactory jedisConnectionFactory =   new JedisConnectionFactory();
+        jedisConnectionFactory.setHostName("47.104.65.225");
+        jedisConnectionFactory.setPassword("rediswang");
+        return jedisConnectionFactory;
     }
 
     @Bean
@@ -64,9 +67,9 @@ public class DataConfig {
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        cpds.setJdbcUrl( "jdbc:mysql://localhost:3306/test" );
-        cpds.setUser("peter");
-        cpds.setPassword("123456");
+        cpds.setJdbcUrl( "jdbc:mysql://localhost:3306/spring" );
+        cpds.setUser("root");
+        cpds.setPassword("root");
 
         cpds.setMinPoolSize(5);
         cpds.setAcquireIncrement(5);
@@ -85,7 +88,7 @@ public class DataConfig {
         sqlSessionFactoryBean.setDataSource(dataSource);
 
         Resource[] mappers = new ClassPathResource[]{
-                new ClassPathResource("mappers/UserMapper.xml"),
+                new ClassPathResource("mybatis/mysql/UserMapper.xml"),
         };
         sqlSessionFactoryBean.setMapperLocations(mappers);
 
@@ -105,7 +108,7 @@ public class DataConfig {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer
                 = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.example.repository");
+        mapperScannerConfigurer.setBasePackage("com.hueizhe.repository");
         return mapperScannerConfigurer;
     }
 }

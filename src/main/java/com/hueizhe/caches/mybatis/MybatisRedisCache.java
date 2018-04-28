@@ -2,6 +2,7 @@ package com.hueizhe.caches.mybatis;
 
 import com.hueizhe.utils.SerializeUtil;
 import org.apache.ibatis.cache.Cache;
+
 import redis.clients.jedis.Jedis;
 
 
@@ -10,7 +11,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 public class MybatisRedisCache implements Cache {
 
     private final String id;
-    private Jedis jedis = new Jedis("localhost");
+    private Jedis jedis = new Jedis("47.104.65.225");
 
 
     public MybatisRedisCache(String id) {

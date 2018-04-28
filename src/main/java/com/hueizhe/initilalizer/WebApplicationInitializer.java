@@ -12,10 +12,11 @@ public class WebApplicationInitializer
         @Override
         protected Class<?>[] getRootConfigClasses() {
             return new Class<?>[]{
+      //              CachingConfig.class,
                     WebSecurityConfig.class,
                     RootConfig.class,
                     HttpSessionConfig.class,
-                    CachingConfig.class
+
             };
         }
 
