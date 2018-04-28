@@ -18,6 +18,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import redis.clients.jedis.JedisPoolConfig;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -25,11 +26,22 @@ import java.beans.PropertyVetoException;
 @Configuration
 public class DataConfig {
 
+
     @Bean
-    public RedisConnectionFactory connectionFactory() {
+    public JedisPoolConfig jedisPoolConfig(){
+        JedisPoolConfig jedisPoolConfig =   new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(3);
+        jedisPoolConfig.setMaxTotal(3);
+        jedisPoolConfig.setMaxWaitMillis(2000);
+        return jedisPoolConfig;
+    }
+
+    @Bean
+    public RedisConnectionFactory connectionFactory(JedisPoolConfig jedisPoolConfig) {
         JedisConnectionFactory jedisConnectionFactory =   new JedisConnectionFactory();
         jedisConnectionFactory.setHostName("47.104.65.225");
-        jedisConnectionFactory.setPassword("rediswang");
+        jedisConnectionFactory.setPassword("redis");
+        jedisConnectionFactory.setPoolConfig(jedisPoolConfig);
         return jedisConnectionFactory;
     }
 
