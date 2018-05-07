@@ -1,5 +1,7 @@
 package com.hueizhe.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,7 @@ import javax.sql.DataSource;
 @Configurable
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    private final static Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
     @Autowired
     private DataSource dataSource;
 
@@ -27,7 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, true from users where username = ?")
                 .authoritiesByUsernameQuery("select username, 'ROLE_USER' from users where username = ?");
+        logger.debug(auth.toString());
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

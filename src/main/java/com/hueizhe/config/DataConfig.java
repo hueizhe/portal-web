@@ -40,7 +40,7 @@ public class DataConfig {
     public RedisConnectionFactory connectionFactory(JedisPoolConfig jedisPoolConfig) {
         JedisConnectionFactory jedisConnectionFactory =   new JedisConnectionFactory();
         jedisConnectionFactory.setHostName("47.104.65.225");
-        jedisConnectionFactory.setPassword("redis");
+        jedisConnectionFactory.setPassword("rediswang");
         jedisConnectionFactory.setPoolConfig(jedisPoolConfig);
         return jedisConnectionFactory;
     }
@@ -62,16 +62,16 @@ public class DataConfig {
 //        return (DataSource)jndiObjectFactoryBean.getObject();
 //    }
 
-    @Bean
-    @Primary
-    public DataSource h2DataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("schema.sql")
-                .build();
-    }
+//    @Bean
+//    public DataSource h2DataSource() {
+//        return new EmbeddedDatabaseBuilder()
+//                .setType(EmbeddedDatabaseType.H2)
+//                .addScript("schema.sql")
+//                .build();
+//    }
 
     @Bean
+    @Primary
     public DataSource c3p0dataSource()  {
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {

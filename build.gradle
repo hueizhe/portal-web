@@ -42,6 +42,9 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.0.0.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.0.0.RELEASE'
 
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'org.logback-extensions', name: 'logback-ext-spring', version: '0.1.5'
 
 
     compile group: 'org.apache.tiles', name: 'tiles-extras', version: '3.0.8'

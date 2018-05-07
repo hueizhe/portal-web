@@ -12,9 +12,9 @@ public class SignInController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("toSignIn")
+    @RequestMapping("to-sign-in")
     public String toSignIn() {
-        return "signIn";
+        return "sign-in";
     }
 
     @RequestMapping("signIn")

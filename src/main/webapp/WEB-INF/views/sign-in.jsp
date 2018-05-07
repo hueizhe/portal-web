@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1>Sign In</h1>
-<form action="signIn" method="post">
+<form action="sign-in" method="post">
 
     <input name="username"/> <br>
     <input name="password"/> <br>

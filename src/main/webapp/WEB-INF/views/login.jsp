@@ -28,4 +28,4 @@
     <button type="submit" class="btn">Log in</button>
 </form>
 
-<a href="toSignIn">Sign In</a>
+<a href="to-sign-in">Sign In</a>
