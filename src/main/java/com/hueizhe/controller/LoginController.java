@@ -15,12 +15,10 @@ public class LoginController {
 
     @RequestMapping("login")
     public String login(@RequestParam(value = "error", required = false) String error, User user) {
-        logger.debug("user===" + user);
+
         String password = new BCryptPasswordEncoder().encode("tony");
         logger.debug("password===" + password);
-        if (null != user.getUsername()){
-            System.out.println("username===="+ user.getUsername());
-        }
+
         return "login";
     }
 }
