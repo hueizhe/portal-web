@@ -11,11 +11,23 @@ public class Solution {
 
         quickSort(Array,0 , Array.length-1);
 
-
-
         for(int i=0; i<Array.length; i++){
-            System.out.println(i);
+            System.out.println(Array[i]);
         }
+
+        if(Array[0] > 1 &&  Array[1] >4){
+
+            return "not possible";
+        }
+
+        if(Array[0] > 3 ||  Array[2] > 5){
+
+            return "not possible";
+        }
+
+        String as = String.valueOf(Array[0]) + String.valueOf(Array[1]) + ":" +String.valueOf(Array[3]) + String.valueOf(Array[4])+":"+String.valueOf(Array[2]) + String.valueOf(Array[5]);
+        System.out.println("as=============="+as);
+
 
 
 
