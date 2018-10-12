@@ -12,6 +12,8 @@ import java.util.List;
 
 public class CreatePdfWithHeadAndFooter {
 
+    public static final String DEST = "results/events/page_footer_head_"+ (int)(Math.random() *100) +".pdf";
+
     public static final String FONT = "resources/fonts/STSONG.ttf";
     public static final String BOLD = "resources/fonts/STSONG.ttf";
 
@@ -31,22 +33,22 @@ public class CreatePdfWithHeadAndFooter {
     }
 
 
-    class MyFooter extends PdfPageEventHelper {
+    class CustomHeadFooter extends PdfPageEventHelper {
 
         PdfTemplate t;
-        PdfContentByte cb;
+        PdfContentByte canvas;
         Image total;
 
 
 
 
-//        protected Phrase title;
+        protected Phrase title;
 
         protected List<Phrase> headerList;
 
-//        public void setTitle(Phrase title) {
-//            this.title = title;
-//        }
+        public void setTitle(Phrase title) {
+            this.title = title;
+        }
 
 
         public void setHeaderList(List<Phrase> headerList) {
@@ -55,7 +57,7 @@ public class CreatePdfWithHeadAndFooter {
 
         protected ElementList footer;
 
-        MyFooter() throws IOException, DocumentException {
+        CustomHeadFooter() throws IOException, DocumentException {
 
         }
 
@@ -80,9 +82,8 @@ public class CreatePdfWithHeadAndFooter {
         }
 
         public void onEndPage(PdfWriter writer, Document document) {
-            cb = writer.getDirectContent();
+            canvas = writer.getDirectContentUnder();
 
-            Phrase title = new Phrase("往来业务对账单", footerFont);
 
             Phrase make = new Phrase("制单人： _____", footerFont);
             Phrase review = new Phrase(String.format("审核人: _____"), footerFont);
@@ -90,12 +91,10 @@ public class CreatePdfWithHeadAndFooter {
             Phrase footer = new Phrase("打印时间: _____", footerFont);
             Phrase pageInfo =new Phrase(String.format("第 %d 页/共 ", writer.getPageNumber()), footerFont);
 
-            ColumnText.showTextAligned(cb, Element.ALIGN_CENTER,
-                    title,
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER,
+                    this.title,
                     (document.right() - document.left()) / 2 + document.leftMargin(),
                     document.top() + 10, 0);
-
-
 
             //head
 //            for(int i = 0; i < headerList.size(); i = i+2){
@@ -136,13 +135,13 @@ public class CreatePdfWithHeadAndFooter {
         }
 
 
-
         @Override
         public void onCloseDocument(PdfWriter writer, Document document) {
             ColumnText.showTextAligned(t, Element.ALIGN_LEFT,
                     new Phrase(String.valueOf(writer.getPageNumber() - 1 +" 页"), footerFont),
                     2, 2, 0);
         }
+
 
 
         public void buildFooter(Phrase footerRight, Phrase footerLeft,final int rowStart, final int rowEnd, final float xPos, final float yPos, PdfWriter writer ){
@@ -173,7 +172,7 @@ public class CreatePdfWithHeadAndFooter {
 
     }
 
-    public static final String DEST = "results/events/page_footer_head_"+ (int)(Math.random() *100) +".pdf";
+
 
     //TODO main
     public static void main(String[] args) throws IOException, DocumentException {
@@ -193,7 +192,7 @@ public class CreatePdfWithHeadAndFooter {
         headerList.add(new Phrase(String.format("对账期间： %s", "wangpengwe3"), footerFont));
         headerList.add(new Phrase(String.format("发送单位： %s", "wangpengwe4"), footerFont));
         pdfDocument.setHeaderList(headerList);
-        pdfDocument.setTitle("往来业务对账单");
+        pdfDocument.setTitle("往来业务对账单12");
 
         new CreatePdfWithHeadAndFooter().createPdf(DEST,pdfDocument);
     }
@@ -203,12 +202,12 @@ public class CreatePdfWithHeadAndFooter {
 
         // step 1
         Document document = new Document();
+
         // step 2
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
-        Phrase getTitle1 = new Phrase(pdfDocument.getTitle(), titleFont);
-        MyFooter event = new MyFooter();
-        event.setHeaderList(pdfDocument.getHeaderList());
-     //   event.setTitle(getTitle1);
+
+        CustomHeadFooter event = new CustomHeadFooter();
+
         writer.setPageEvent(event);
         // step 3
         document.open();
@@ -216,7 +215,12 @@ public class CreatePdfWithHeadAndFooter {
         for (int i = 0; i < 3; ) {
             i++;
             document.add(new Paragraph("" + i));
+
+            event.setTitle(new Phrase(pdfDocument.getTitle(), titleFont));
+
             document.newPage();
+
+
         }
         // step 5
         document.close();
